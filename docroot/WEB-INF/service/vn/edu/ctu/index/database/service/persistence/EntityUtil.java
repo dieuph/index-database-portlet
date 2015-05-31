@@ -177,6 +177,75 @@ public class EntityUtil {
 	}
 
 	/**
+	* Returns the entity where classNameId = &#63; or throws a {@link vn.edu.ctu.index.database.NoSuchEntityException} if it could not be found.
+	*
+	* @param classNameId the class name ID
+	* @return the matching entity
+	* @throws vn.edu.ctu.index.database.NoSuchEntityException if a matching entity could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static vn.edu.ctu.index.database.model.Entity findByClassNameId(
+		long classNameId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			vn.edu.ctu.index.database.NoSuchEntityException {
+		return getPersistence().findByClassNameId(classNameId);
+	}
+
+	/**
+	* Returns the entity where classNameId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param classNameId the class name ID
+	* @return the matching entity, or <code>null</code> if a matching entity could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static vn.edu.ctu.index.database.model.Entity fetchByClassNameId(
+		long classNameId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByClassNameId(classNameId);
+	}
+
+	/**
+	* Returns the entity where classNameId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param classNameId the class name ID
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching entity, or <code>null</code> if a matching entity could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static vn.edu.ctu.index.database.model.Entity fetchByClassNameId(
+		long classNameId, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByClassNameId(classNameId, retrieveFromCache);
+	}
+
+	/**
+	* Removes the entity where classNameId = &#63; from the database.
+	*
+	* @param classNameId the class name ID
+	* @return the entity that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static vn.edu.ctu.index.database.model.Entity removeByClassNameId(
+		long classNameId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			vn.edu.ctu.index.database.NoSuchEntityException {
+		return getPersistence().removeByClassNameId(classNameId);
+	}
+
+	/**
+	* Returns the number of entities where classNameId = &#63;.
+	*
+	* @param classNameId the class name ID
+	* @return the number of matching entities
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByClassNameId(long classNameId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByClassNameId(classNameId);
+	}
+
+	/**
 	* Caches the entity in the entity cache if it is enabled.
 	*
 	* @param entity the entity

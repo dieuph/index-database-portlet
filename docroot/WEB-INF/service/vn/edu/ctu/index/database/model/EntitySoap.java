@@ -31,6 +31,7 @@ public class EntitySoap implements Serializable {
 		EntitySoap soapModel = new EntitySoap();
 
 		soapModel.setEntityId(model.getEntityId());
+		soapModel.setClassNameId(model.getClassNameId());
 		soapModel.setPackagePath(model.getPackagePath());
 		soapModel.setEntityName(model.getEntityName());
 
@@ -93,6 +94,14 @@ public class EntitySoap implements Serializable {
 		_entityId = entityId;
 	}
 
+	public long getClassNameId() {
+		return _classNameId;
+	}
+
+	public void setClassNameId(long classNameId) {
+		_classNameId = classNameId;
+	}
+
 	public String getPackagePath() {
 		return _packagePath;
 	}
@@ -110,6 +119,7 @@ public class EntitySoap implements Serializable {
 	}
 
 	private long _entityId;
+	private long _classNameId;
 	private String _packagePath;
 	private String _entityName;
 }

@@ -35,10 +35,12 @@ import java.io.ObjectOutput;
 public class EntityCacheModel implements CacheModel<Entity>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("{entityId=");
 		sb.append(entityId);
+		sb.append(", classNameId=");
+		sb.append(classNameId);
 		sb.append(", packagePath=");
 		sb.append(packagePath);
 		sb.append(", entityName=");
@@ -53,6 +55,7 @@ public class EntityCacheModel implements CacheModel<Entity>, Externalizable {
 		EntityImpl entityImpl = new EntityImpl();
 
 		entityImpl.setEntityId(entityId);
+		entityImpl.setClassNameId(classNameId);
 
 		if (packagePath == null) {
 			entityImpl.setPackagePath(StringPool.BLANK);
@@ -76,6 +79,7 @@ public class EntityCacheModel implements CacheModel<Entity>, Externalizable {
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		entityId = objectInput.readLong();
+		classNameId = objectInput.readLong();
 		packagePath = objectInput.readUTF();
 		entityName = objectInput.readUTF();
 	}
@@ -84,6 +88,7 @@ public class EntityCacheModel implements CacheModel<Entity>, Externalizable {
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(entityId);
+		objectOutput.writeLong(classNameId);
 
 		if (packagePath == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -101,6 +106,7 @@ public class EntityCacheModel implements CacheModel<Entity>, Externalizable {
 	}
 
 	public long entityId;
+	public long classNameId;
 	public String packagePath;
 	public String entityName;
 }

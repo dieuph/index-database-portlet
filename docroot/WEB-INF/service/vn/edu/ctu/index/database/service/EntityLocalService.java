@@ -253,4 +253,20 @@ public interface EntityLocalService extends BaseLocalService,
 	*/
 	public vn.edu.ctu.index.database.model.Entity findByEntityName(
 		java.lang.String entityName);
+
+	/**
+	* Find by class name id.
+	*
+	* @param classNameId the class name id
+	* @return the entity or null if SystemException, NoSuchEntityException occurs
+	*/
+	public vn.edu.ctu.index.database.model.Entity findByClassNameId(
+		long classNameId);
+
+	/**
+	* Find all entity.
+	*
+	* @return the list of entity or empty list if SystemException occurs
+	*/
+	public java.util.List<vn.edu.ctu.index.database.model.Entity> findAll();
 }

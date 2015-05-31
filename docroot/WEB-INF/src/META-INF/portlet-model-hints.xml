@@ -3,6 +3,7 @@
 <model-hints>
 	<model name="vn.edu.ctu.index.database.model.Entity">
 		<field name="entityId" type="long" />
+		<field name="classNameId" type="long" />
 		<field name="packagePath" type="String" />
 		<field name="entityName" type="String">
 			<hint name="max-length">300</hint>

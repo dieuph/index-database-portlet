@@ -10,15 +10,17 @@
 	<mapped-superclass class="vn.edu.ctu.index.database.model.impl.EntityModelImpl">
 		<attributes>
 			<id name="entityId" />
+			<basic name="classNameId" />
 			<basic name="packagePath" />
 			<basic name="entityName" />
+			<transient name="className" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
 	<entity class="vn.edu.ctu.index.database.model.impl.EntityImpl" name="Entity">
-		<table name="idxdb_Entity" />
+		<table name="IDXDB_Entity" />
 		<attributes />
 	</entity>
 </entity-mappings>

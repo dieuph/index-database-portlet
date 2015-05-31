@@ -14,6 +14,9 @@
 
 package vn.edu.ctu.index.database.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.edu.ctu.index.database.model.Entity;
 import vn.edu.ctu.index.database.service.base.EntityLocalServiceBaseImpl;
 
@@ -49,8 +52,37 @@ public class EntityLocalServiceImpl extends EntityLocalServiceBaseImpl {
 		try {
 			entity = entityPersistence.findByEntityName(entityName);
 		} catch (Exception e) {
-			
 		}
 		return entity;
+	}
+	
+	/**
+	 * Find by class name id.
+	 *
+	 * @param classNameId the class name id
+	 * @return the entity or null if SystemException, NoSuchEntityException occurs
+	 */
+	public Entity findByClassNameId(long classNameId) {
+		Entity entity = null;
+		try {
+			entity = entityPersistence.findByClassNameId(classNameId);
+		} catch (Exception e) {
+		}
+		return entity;
+	}
+	
+	/**
+	 * Find all entity.
+	 *
+	 * @return the list of entity or empty list if SystemException occurs
+	 */
+	public List<Entity> findAll() {
+		List<Entity> entities = null;
+		try {
+			entities = entityPersistence.findAll();
+		} catch (Exception e) {
+			entities = new ArrayList<Entity>();
+		}
+		return entities;
 	}
 }

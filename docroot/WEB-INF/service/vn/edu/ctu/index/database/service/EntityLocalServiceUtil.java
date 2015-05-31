@@ -286,6 +286,26 @@ public class EntityLocalServiceUtil {
 		return getService().findByEntityName(entityName);
 	}
 
+	/**
+	* Find by class name id.
+	*
+	* @param classNameId the class name id
+	* @return the entity or null if SystemException, NoSuchEntityException occurs
+	*/
+	public static vn.edu.ctu.index.database.model.Entity findByClassNameId(
+		long classNameId) {
+		return getService().findByClassNameId(classNameId);
+	}
+
+	/**
+	* Find all entity.
+	*
+	* @return the list of entity or empty list if SystemException occurs
+	*/
+	public static java.util.List<vn.edu.ctu.index.database.model.Entity> findAll() {
+		return getService().findAll();
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

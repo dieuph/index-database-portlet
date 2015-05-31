@@ -3,11 +3,12 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="vn.edu.ctu.index.database.model.Entity" />
-	<class name="vn.edu.ctu.index.database.model.impl.EntityImpl" table="idxdb_Entity">
+	<class name="vn.edu.ctu.index.database.model.impl.EntityImpl" table="IDXDB_Entity">
 		<cache usage="read-write" />
 		<id name="entityId" type="long">
 			<generator class="assigned" />
 		</id>
+		<property name="classNameId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="packagePath" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="entityName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>

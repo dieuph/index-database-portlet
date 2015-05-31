@@ -2,7 +2,7 @@
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
 <service-builder package-path="vn.edu.ctu.index.database">
 	<author></author>
-	<namespace>idxdb</namespace>
+	<namespace>IDXDB</namespace>
 
 	<entity name="Entity" local-service="true" remote-service="true">
 
@@ -10,12 +10,17 @@
         <column name="entityId" type="long" primary="true" />
 
         <!-- Audit fields -->
+        <column name="classNameId" type="long" />
         <column name="packagePath" type="String" />
         <column name="entityName" type="String" />
 
         <!-- Finder methods -->
         <finder return-type="Entity" name="EntityName" >
             <finder-column name="entityName" />
+        </finder>
+        
+        <finder return-type="Entity" name="ClassNameId">
+            <finder-column name="classNameId" />
         </finder>
     </entity>
 </service-builder>

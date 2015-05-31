@@ -117,6 +117,14 @@ public class EntityLocalServiceClpInvoker {
 		_methodName40 = "findByEntityName";
 
 		_methodParameterTypes40 = new String[] { "java.lang.String" };
+
+		_methodName41 = "findByClassNameId";
+
+		_methodParameterTypes41 = new String[] { "long" };
+
+		_methodName42 = "findAll";
+
+		_methodParameterTypes42 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -225,6 +233,16 @@ public class EntityLocalServiceClpInvoker {
 			return EntityLocalServiceUtil.findByEntityName((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+			return EntityLocalServiceUtil.findByClassNameId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+			return EntityLocalServiceUtil.findAll();
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -266,4 +284,8 @@ public class EntityLocalServiceClpInvoker {
 	private String[] _methodParameterTypes35;
 	private String _methodName40;
 	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
 }

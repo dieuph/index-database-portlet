@@ -117,6 +117,14 @@ public class EntityLocalServiceClp implements EntityLocalService {
 		_methodName19 = "findByEntityName";
 
 		_methodParameterTypes19 = new String[] { "java.lang.String" };
+
+		_methodName20 = "findByClassNameId";
+
+		_methodParameterTypes20 = new String[] { "long" };
+
+		_methodName21 = "findAll";
+
+		_methodParameterTypes21 = new String[] {  };
 	}
 
 	@Override
@@ -690,6 +698,53 @@ public class EntityLocalServiceClp implements EntityLocalService {
 		return (vn.edu.ctu.index.database.model.Entity)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public vn.edu.ctu.index.database.model.Entity findByClassNameId(
+		long classNameId) {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] { classNameId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (vn.edu.ctu.index.database.model.Entity)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<vn.edu.ctu.index.database.model.Entity> findAll() {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<vn.edu.ctu.index.database.model.Entity>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -729,4 +784,8 @@ public class EntityLocalServiceClp implements EntityLocalService {
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
 }

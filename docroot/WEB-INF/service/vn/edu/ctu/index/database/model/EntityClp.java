@@ -18,8 +18,11 @@ import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.util.PortalUtil;
 
 import vn.edu.ctu.index.database.service.ClpSerializer;
 import vn.edu.ctu.index.database.service.EntityLocalServiceUtil;
@@ -73,6 +76,7 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("entityId", getEntityId());
+		attributes.put("classNameId", getClassNameId());
 		attributes.put("packagePath", getPackagePath());
 		attributes.put("entityName", getEntityName());
 
@@ -85,6 +89,12 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 
 		if (entityId != null) {
 			setEntityId(entityId);
+		}
+
+		Long classNameId = (Long)attributes.get("classNameId");
+
+		if (classNameId != null) {
+			setClassNameId(classNameId);
 		}
 
 		String packagePath = (String)attributes.get("packagePath");
@@ -116,6 +126,49 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 				Method method = clazz.getMethod("setEntityId", long.class);
 
 				method.invoke(_entityRemoteModel, entityId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getClassName() {
+		if (getClassNameId() <= 0) {
+			return StringPool.BLANK;
+		}
+
+		return PortalUtil.getClassName(getClassNameId());
+	}
+
+	@Override
+	public void setClassName(String className) {
+		long classNameId = 0;
+
+		if (Validator.isNotNull(className)) {
+			classNameId = PortalUtil.getClassNameId(className);
+		}
+
+		setClassNameId(classNameId);
+	}
+
+	@Override
+	public long getClassNameId() {
+		return _classNameId;
+	}
+
+	@Override
+	public void setClassNameId(long classNameId) {
+		_classNameId = classNameId;
+
+		if (_entityRemoteModel != null) {
+			try {
+				Class<?> clazz = _entityRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setClassNameId", long.class);
+
+				method.invoke(_entityRemoteModel, classNameId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -239,6 +292,7 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 		EntityClp clone = new EntityClp();
 
 		clone.setEntityId(getEntityId());
+		clone.setClassNameId(getClassNameId());
 		clone.setPackagePath(getPackagePath());
 		clone.setEntityName(getEntityName());
 
@@ -289,10 +343,12 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(9);
 
 		sb.append("{entityId=");
 		sb.append(getEntityId());
+		sb.append(", classNameId=");
+		sb.append(getClassNameId());
 		sb.append(", packagePath=");
 		sb.append(getPackagePath());
 		sb.append(", entityName=");
@@ -304,7 +360,7 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(16);
 
 		sb.append("<model><model-name>");
 		sb.append("vn.edu.ctu.index.database.model.Entity");
@@ -313,6 +369,10 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 		sb.append(
 			"<column><column-name>entityId</column-name><column-value><![CDATA[");
 		sb.append(getEntityId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>classNameId</column-name><column-value><![CDATA[");
+		sb.append(getClassNameId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>packagePath</column-name><column-value><![CDATA[");
@@ -329,6 +389,7 @@ public class EntityClp extends BaseModelImpl<Entity> implements Entity {
 	}
 
 	private long _entityId;
+	private long _classNameId;
 	private String _packagePath;
 	private String _entityName;
 	private BaseModel<?> _entityRemoteModel;

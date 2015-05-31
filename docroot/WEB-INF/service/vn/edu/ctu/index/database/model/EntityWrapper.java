@@ -49,6 +49,7 @@ public class EntityWrapper implements Entity, ModelWrapper<Entity> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("entityId", getEntityId());
+		attributes.put("classNameId", getClassNameId());
 		attributes.put("packagePath", getPackagePath());
 		attributes.put("entityName", getEntityName());
 
@@ -61,6 +62,12 @@ public class EntityWrapper implements Entity, ModelWrapper<Entity> {
 
 		if (entityId != null) {
 			setEntityId(entityId);
+		}
+
+		Long classNameId = (Long)attributes.get("classNameId");
+
+		if (classNameId != null) {
+			setClassNameId(classNameId);
 		}
 
 		String packagePath = (String)attributes.get("packagePath");
@@ -114,6 +121,41 @@ public class EntityWrapper implements Entity, ModelWrapper<Entity> {
 	@Override
 	public void setEntityId(long entityId) {
 		_entity.setEntityId(entityId);
+	}
+
+	/**
+	* Returns the fully qualified class name of this entity.
+	*
+	* @return the fully qualified class name of this entity
+	*/
+	@Override
+	public java.lang.String getClassName() {
+		return _entity.getClassName();
+	}
+
+	@Override
+	public void setClassName(java.lang.String className) {
+		_entity.setClassName(className);
+	}
+
+	/**
+	* Returns the class name ID of this entity.
+	*
+	* @return the class name ID of this entity
+	*/
+	@Override
+	public long getClassNameId() {
+		return _entity.getClassNameId();
+	}
+
+	/**
+	* Sets the class name ID of this entity.
+	*
+	* @param classNameId the class name ID of this entity
+	*/
+	@Override
+	public void setClassNameId(long classNameId) {
+		_entity.setClassNameId(classNameId);
 	}
 
 	/**

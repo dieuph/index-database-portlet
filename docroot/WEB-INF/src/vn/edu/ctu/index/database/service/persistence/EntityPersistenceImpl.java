@@ -332,6 +332,224 @@ public class EntityPersistenceImpl extends BasePersistenceImpl<Entity>
 	private static final String _FINDER_COLUMN_ENTITYNAME_ENTITYNAME_1 = "entity.entityName IS NULL";
 	private static final String _FINDER_COLUMN_ENTITYNAME_ENTITYNAME_2 = "entity.entityName = ?";
 	private static final String _FINDER_COLUMN_ENTITYNAME_ENTITYNAME_3 = "(entity.entityName IS NULL OR entity.entityName = '')";
+	public static final FinderPath FINDER_PATH_FETCH_BY_CLASSNAMEID = new FinderPath(EntityModelImpl.ENTITY_CACHE_ENABLED,
+			EntityModelImpl.FINDER_CACHE_ENABLED, EntityImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByClassNameId",
+			new String[] { Long.class.getName() },
+			EntityModelImpl.CLASSNAMEID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_CLASSNAMEID = new FinderPath(EntityModelImpl.ENTITY_CACHE_ENABLED,
+			EntityModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByClassNameId",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns the entity where classNameId = &#63; or throws a {@link vn.edu.ctu.index.database.NoSuchEntityException} if it could not be found.
+	 *
+	 * @param classNameId the class name ID
+	 * @return the matching entity
+	 * @throws vn.edu.ctu.index.database.NoSuchEntityException if a matching entity could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Entity findByClassNameId(long classNameId)
+		throws NoSuchEntityException, SystemException {
+		Entity entity = fetchByClassNameId(classNameId);
+
+		if (entity == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("classNameId=");
+			msg.append(classNameId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchEntityException(msg.toString());
+		}
+
+		return entity;
+	}
+
+	/**
+	 * Returns the entity where classNameId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param classNameId the class name ID
+	 * @return the matching entity, or <code>null</code> if a matching entity could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Entity fetchByClassNameId(long classNameId)
+		throws SystemException {
+		return fetchByClassNameId(classNameId, true);
+	}
+
+	/**
+	 * Returns the entity where classNameId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param classNameId the class name ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching entity, or <code>null</code> if a matching entity could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Entity fetchByClassNameId(long classNameId, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { classNameId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CLASSNAMEID,
+					finderArgs, this);
+		}
+
+		if (result instanceof Entity) {
+			Entity entity = (Entity)result;
+
+			if ((classNameId != entity.getClassNameId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_ENTITY_WHERE);
+
+			query.append(_FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				List<Entity> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CLASSNAMEID,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"EntityPersistenceImpl.fetchByClassNameId(long, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					Entity entity = list.get(0);
+
+					result = entity;
+
+					cacheResult(entity);
+
+					if ((entity.getClassNameId() != classNameId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CLASSNAMEID,
+							finderArgs, entity);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CLASSNAMEID,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Entity)result;
+		}
+	}
+
+	/**
+	 * Removes the entity where classNameId = &#63; from the database.
+	 *
+	 * @param classNameId the class name ID
+	 * @return the entity that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Entity removeByClassNameId(long classNameId)
+		throws NoSuchEntityException, SystemException {
+		Entity entity = findByClassNameId(classNameId);
+
+		return remove(entity);
+	}
+
+	/**
+	 * Returns the number of entities where classNameId = &#63;.
+	 *
+	 * @param classNameId the class name ID
+	 * @return the number of matching entities
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByClassNameId(long classNameId) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_CLASSNAMEID;
+
+		Object[] finderArgs = new Object[] { classNameId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_ENTITY_WHERE);
+
+			query.append(_FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(classNameId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CLASSNAMEID_CLASSNAMEID_2 = "entity.classNameId = ?";
 
 	public EntityPersistenceImpl() {
 		setModelClass(Entity.class);
@@ -349,6 +567,9 @@ public class EntityPersistenceImpl extends BasePersistenceImpl<Entity>
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ENTITYNAME,
 			new Object[] { entity.getEntityName() }, entity);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CLASSNAMEID,
+			new Object[] { entity.getClassNameId() }, entity);
 
 		entity.resetOriginalValues();
 	}
@@ -431,6 +652,13 @@ public class EntityPersistenceImpl extends BasePersistenceImpl<Entity>
 				Long.valueOf(1));
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ENTITYNAME, args,
 				entity);
+
+			args = new Object[] { entity.getClassNameId() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEID, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CLASSNAMEID, args,
+				entity);
 		}
 		else {
 			EntityModelImpl entityModelImpl = (EntityModelImpl)entity;
@@ -442,6 +670,16 @@ public class EntityPersistenceImpl extends BasePersistenceImpl<Entity>
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ENTITYNAME,
 					args, Long.valueOf(1));
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ENTITYNAME,
+					args, entity);
+			}
+
+			if ((entityModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_CLASSNAMEID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { entity.getClassNameId() };
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CLASSNAMEID,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CLASSNAMEID,
 					args, entity);
 			}
 		}
@@ -461,6 +699,19 @@ public class EntityPersistenceImpl extends BasePersistenceImpl<Entity>
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ENTITYNAME, args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ENTITYNAME, args);
+		}
+
+		args = new Object[] { entity.getClassNameId() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CLASSNAMEID, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CLASSNAMEID, args);
+
+		if ((entityModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_CLASSNAMEID.getColumnBitmask()) != 0) {
+			args = new Object[] { entityModelImpl.getOriginalClassNameId() };
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CLASSNAMEID, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CLASSNAMEID, args);
 		}
 	}
 
@@ -620,6 +871,7 @@ public class EntityPersistenceImpl extends BasePersistenceImpl<Entity>
 		entityImpl.setPrimaryKey(entity.getPrimaryKey());
 
 		entityImpl.setEntityId(entity.getEntityId());
+		entityImpl.setClassNameId(entity.getClassNameId());
 		entityImpl.setPackagePath(entity.getPackagePath());
 		entityImpl.setEntityName(entity.getEntityName());
 

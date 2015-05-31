@@ -293,6 +293,28 @@ public class EntityLocalServiceWrapper implements EntityLocalService,
 	}
 
 	/**
+	* Find by class name id.
+	*
+	* @param classNameId the class name id
+	* @return the entity or null if SystemException, NoSuchEntityException occurs
+	*/
+	@Override
+	public vn.edu.ctu.index.database.model.Entity findByClassNameId(
+		long classNameId) {
+		return _entityLocalService.findByClassNameId(classNameId);
+	}
+
+	/**
+	* Find all entity.
+	*
+	* @return the list of entity or empty list if SystemException occurs
+	*/
+	@Override
+	public java.util.List<vn.edu.ctu.index.database.model.Entity> findAll() {
+		return _entityLocalService.findAll();
+	}
+
+	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public EntityLocalService getWrappedEntityLocalService() {

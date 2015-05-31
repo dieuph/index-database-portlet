@@ -17,7 +17,7 @@ package vn.edu.ctu.index.database.model;
 import com.liferay.portal.model.PersistedModel;
 
 /**
- * The extended model interface for the Entity service. Represents a row in the &quot;idxdb_Entity&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the Entity service. Represents a row in the &quot;IDXDB_Entity&quot; database table, with each column mapped to a property of this class.
  *
  * @author
  * @see EntityModel

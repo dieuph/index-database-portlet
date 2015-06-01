@@ -67,10 +67,10 @@
 
 <aui:script>
 YUI().use('node', 'io', 'event', 'animation', 'aui-form-validator', 'aui-io-request-deprecated', 'aui-io-deprecated', function(Y) {
-	window.removeEntity = function(node) {
-		var entityId = node.getAttribute('entityid');
-		
-		Y.io.request('<%=removeEntity.toString()%>', {
+    window.removeEntity = function(node) {
+        var entityId = node.getAttribute('entityid');
+        
+        Y.io.request('<%=removeEntity.toString()%>', {
             dataType: 'json',
             method: 'GET',
             data: {
@@ -85,27 +85,27 @@ YUI().use('node', 'io', 'event', 'animation', 'aui-form-validator', 'aui-io-requ
                         var messageNode = Y.one("#message");
                         console.log(messageNode);
                         
-                    	if (data.success == 'true') {
-                    		messageNode.addClass('alert alert-success');
-                    	}
-                    	
-                    	if (data.success == 'false') {
-                    		messageNode.addClass('alert alert-error');
+                        if (data.success == 'true') {
+                            messageNode.addClass('alert alert-success');
                         }
-                    	
-                    	messageNode.set('text', data.message);
-                    	
-                    	var deletedNode = Y.one(node).get('parentNode');
-                    	
-                    	console.log(deletedNode);
-                    	deletedNode.remove(true);
+                        
+                        if (data.success == 'false') {
+                            messageNode.addClass('alert alert-error');
+                        }
+                        
+                        messageNode.set('text', data.message);
+                        
+                        var deletedNode = Y.one(node).get('parentNode');
+                        
+                        console.log(deletedNode);
+                        deletedNode.remove(true);
                     }
                     
                 }
             }
         });
-	}
-	
+    }
+    
     window.showAddEntityPopupDialog = function(node) {
         var url = '<%=addEntity.toString()%>';
         
@@ -143,7 +143,7 @@ YUI().use('node', 'io', 'event', 'animation', 'aui-form-validator', 'aui-io-requ
                     var entityId = dataReceive[Object.keys(dataReceive)[5]];
                     
                     if (success != "") {
-                    	var messageNode = Y.one("#message");
+                        var messageNode = Y.one("#message");
                         
                         if (success == 'true') {
                             messageNode.addClass('alert alert-success');

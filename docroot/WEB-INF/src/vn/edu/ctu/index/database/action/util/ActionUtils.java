@@ -15,6 +15,7 @@
 package vn.edu.ctu.index.database.action.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -249,14 +250,24 @@ public class ActionUtils {
 	 * @param <T> the generic type
 	 * @param clazz the clazz
 	 * @return the fields
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
 	 */
-	public static <T> HashMap<String, String> getFields(Class<T> clazz) {
+	public static HashMap<String, String> getFields(String className) throws SecurityException, ClassNotFoundException {
 		HashMap<String, String> results = new HashMap<String, String>();
-		Field[] fields = clazz.getDeclaredFields();
+		Field[] fields = Class.forName(className).getDeclaredFields();
 		
-		results.put("length", String.valueOf(fields.length));
         for (Field field : fields) {
-        	results.put(field.getName(), field.getType().getSimpleName());
+        	
+        	if (field.getName().startsWith("_")
+        			&& !field.getName().contains("original")
+        			&& !field.getName().contains("Original")
+        			&& !Modifier.isStatic(field.getModifiers())
+        			&& !field.getName().equalsIgnoreCase("_columnBitmask")
+        			&& !field.getName().equalsIgnoreCase("_escapedModel")) {
+				
+        		results.put(field.getName().substring(1), field.getType().getSimpleName());
+			}
         }
 		return results;
 	}

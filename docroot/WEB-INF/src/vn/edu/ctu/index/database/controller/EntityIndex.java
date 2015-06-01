@@ -112,13 +112,19 @@ public class EntityIndex extends MVCPortlet {
 				_log.error("There is an error in adding Entity");
 			}
 			
-			HashMap<String, String> maps = ActionUtils.getFields(Class.forName("vn.edu.ctu.index.database.action.util.ChuongTrinhThamQuan"));
-			System.out.print(ActionUtils.mapsToJson(maps).toString());
+			
 		} catch (Exception e) {
 			_log.error("There is an error in adding Entity");
 		}
 		
 		_log.info(entityJsonObject);
+		
+		try {
+			HashMap<String, String> maps = ActionUtils.getFields("ctu.edu.vn.qlcd.model.impl.CongDoanVienModelImpl");
+			System.out.print(ActionUtils.mapsToJson(maps).toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		PrintWriter writer = resourceResponse.getWriter();
 		writer.println(entityJsonObject.toString());

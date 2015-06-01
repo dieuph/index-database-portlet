@@ -16,7 +16,6 @@ package vn.edu.ctu.index.database.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 
 import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
@@ -111,20 +110,11 @@ public class EntityIndex extends MVCPortlet {
 			} else {
 				_log.error("There is an error in adding Entity");
 			}
-			
-			
 		} catch (Exception e) {
 			_log.error("There is an error in adding Entity");
 		}
 		
 		_log.info(entityJsonObject);
-		
-		try {
-			HashMap<String, String> maps = ActionUtils.getFields("ctu.edu.vn.qlcd.model.impl.CongDoanVienModelImpl");
-			System.out.print(ActionUtils.mapsToJson(maps).toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		
 		PrintWriter writer = resourceResponse.getWriter();
 		writer.println(entityJsonObject.toString());

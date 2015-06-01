@@ -245,7 +245,8 @@ public class ActionUtils {
 	}
 	
 	/**
-	 * Gets the fields of class.
+	 * Get the fields of class.
+	 * (ex: ctu.edu.vn.qlcd.model.impl.XXXModelImpl)
 	 *
 	 * @param <T> the generic type
 	 * @param clazz the clazz

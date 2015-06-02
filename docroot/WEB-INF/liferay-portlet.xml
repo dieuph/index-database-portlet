@@ -22,8 +22,15 @@
 		<portlet-name>entity-manager</portlet-name>
 		<icon>/icon.png</icon>
 		<header-portlet-css>/css/main.css</header-portlet-css>
+		<header-portlet-css>/css/jquery.dataTables.min.css</header-portlet-css>
 		<footer-portlet-javascript>
 			/js/main.js
+		</footer-portlet-javascript>
+		<footer-portlet-javascript>
+			/js/jquery-1.11.2.js
+		</footer-portlet-javascript>
+		<footer-portlet-javascript>
+			/js/jquery.dataTables.min.js
 		</footer-portlet-javascript>
 		<css-class-wrapper>entity-manager-portlet</css-class-wrapper>
 	</portlet>

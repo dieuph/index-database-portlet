@@ -1,2 +1,1 @@
 # index-database-portlet
-wtf
